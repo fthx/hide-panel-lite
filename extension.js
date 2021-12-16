@@ -6,8 +6,6 @@
 */
 
 
-const { GObject, St } = imports.gi;
-
 const Main = imports.ui.main;
 const Panel = Main.panel;
 const Overview = Main.overview;
@@ -27,7 +25,7 @@ class Extension {
     }
 
     enable() {
-		Panel.set_height(this.panel_height);
+		this._hide_panel();
 		this.showing = Overview.connect('showing', this._show_panel.bind(this));
 		this.hiding = Overview.connect('hiding', this._hide_panel.bind(this));
     }
@@ -35,7 +33,7 @@ class Extension {
     disable() {
     	Overview.disconnect(this.showing);
     	Overview.disconnect(this.hiding);
-		Panel.set_height(this.panel_height);
+		this._show_panel();
     }
 }
 
